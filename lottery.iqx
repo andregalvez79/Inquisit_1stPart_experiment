@@ -1,0 +1,422 @@
+﻿*** some general values***
+<defaults>
+/ screencolor = (255, 255, 255)
+/ font = ("Arial", -20, 700, 0, 49)
+/ txbgcolor = (255, 255, 255)
+/ txcolor = (0,0,0)
+</defaults>
+
+*** instructions ***
+<item Instructions1>
+/1 = "Slide1.jpg"
+/2 = "Slide2.jpg"
+</item>
+
+<item Instructions2>
+/1 = "Slide3.jpg"
+</item>
+
+<item Instructions3>
+/1 = "Slide4.jpg"
+</item>
+
+<item Instructions4>
+/1 = "Slide5.jpg"
+</item>
+
+<item Instructions5>
+/1 = "Slide6.jpg"
+</item>
+
+<picture Instructions1>
+/ select = sequence
+/ items = Instructions1
+/ position = (50%,50%)
+/ size = (1000, 1000)
+</picture>
+
+<picture Instructions2>
+/ select = sequence
+/ items = Instructions2
+/ position = (50%,50%)
+/ size = (1000, 1000)
+</picture>
+
+<picture Instructions3>
+/ select = sequence
+/ items = Instructions3
+/ position = (50%,50%)
+/ size = (1000, 1000)
+</picture>
+
+<picture Instructions4>
+/ select = sequence
+/ items = Instructions4
+/ position = (50%,50%)
+/ size = (1000, 1000)
+</picture>
+
+<picture Instructions5>
+/ select = sequence
+/ items = Instructions5
+/ position = (50%,50%)
+/ size = (1000, 1000)
+</picture>
+
+<picture Volgende>
+/ items = ("Volgende.png")
+/ position = (50%, 90%)
+/ size = (70, 70)
+</picture>
+
+<trial Instructions1>
+/ stimulustimes=[0=Instructions1, Volgende]
+/ inputdevice = mouse
+/ validresponse = (Volgende)
+</trial>
+
+<trial Instructions2>
+/ stimulustimes=[0=Instructions2, Volgende]
+/ inputdevice = mouse
+/ validresponse = (Volgende)
+</trial>
+
+<trial Instructions3>
+/ stimulustimes=[0=Instructions3, Volgende]
+/ inputdevice = mouse
+/ validresponse = (Volgende)
+</trial>
+
+<trial Instructions4>
+/ stimulustimes=[0=Instructions4, Volgende]
+/ inputdevice = mouse
+/ validresponse = (Volgende)
+</trial>
+
+<trial Instructions5>
+/ stimulustimes=[0=Instructions5, Volgende]
+/ inputdevice = mouse
+/ validresponse = (Volgende)
+</trial>
+
+***info pp***
+<openended entry>
+/ stimulusframes = [1-3 = questions]
+/ mouse = true
+/ position = (50%, 50%)
+/ size = (150, 40)
+/ charlimit = 50
+/ numlines = 1
+/ linelength = 20
+/ required = true
+/ buttonlabel = "Continue"
+</openended>
+
+<text questions>
+/size = (1000, 1000)
+/items = questionitems
+/position = (50, 88)
+/txbgcolor = (transparent)
+/halign = center
+/select = sequence
+</text>
+
+<item questionitems>
+/1 = "Name"
+/2 = "Last Name"
+/3 = "BSN number"
+</item>
+
+***lists for lottery***
+<values>
+/ sswin = 0
+/ llwin = 0
+/ winamount = 0
+/ enteredintolottery = 0
+/ drawnnumber = 0
+/ index = 0
+</values>
+
+<list ssa>
+/ items = (33, 32, 35, 28, 24, 32, 27, 25, 35, 
+28, 21, 34, 22, 27, 31, 22, 20, 23, 
+20, 24, 23, 33, 27, 22, 34)
+</list>
+
+<list lla>
+/ items = (33.17, 32.33, 36.05, 29.40, 25.68, 34.88, 35.20,
+ 30.24, 28.75, 42, 36.40, 31.50, 57.80, 22.11, 27.27, 31.93,
+ 23.10, 21.40, 25.07, 22, 26.88, 26.45, 39.60, 35.10, 33, 57.80)
+</list>
+
+<trial choicetrial>
+/ ontrialbegin = [values.llwin=list.lla.nextvalue]
+/ ontrialbegin = [values.sswin=list.ssa.nextvalue]
+/ ontrialend = [if (trial.choicetrial.response=="ss") values.winamount = values.sswin else
+    values.winamount = values.llwin; ]
+/ ontrialend = [list.storedwinnings.appenditem(values.winamount);]
+/ inputdevice = mouse
+/ validresponse = (ss, ll)
+/ stimulusframes = [1 = ss, ll, delayss, delayll, remind]
+</trial>
+
+*** stimuli ***
+ *** now the trial and the output in the stimulus frames ***
+<item ss>
+ /1 = "33"
+ /2 = "32"
+ /3 = "35"
+ /4 = "28"
+ /5 = "24"
+ /6 = "32"
+ /7 = "32"
+ /8 = "27"
+ /9 = "25"
+ /10 = "35"
+ /11 = "28"
+ /12 = "21"
+ /13 = "34"
+ /14 = "22"
+ /15 = "27"
+ /16 = "31"
+ /17 = "22"
+ /18 = "20"
+ /19 = "23"
+ /20 = "20"
+ /21 = "24"
+ /22 = "23"
+ /23 = "33"
+ /24 = "27"
+ /25 = "22"
+ /26 = "34"
+ </item>
+ 
+ *** no replace specifies random order ***
+ <text ss>
+ /items = ss
+ /select = noreplace 
+ /position = (35%, 50%)
+ </text>
+  
+
+ <item ll>
+ /1 = "33.17"
+ /2 = "32.33"
+ /3 = "36.05"
+ /4 = "29.40"
+ /5 = "25.68"
+ /6 = "34.88"
+ /7 = "35.20"
+ /8 = "30.24"
+ /9 = "28.75"
+ /10 = "42"
+ /11 = "36.40"
+ /12 = "31.50"
+ /13 = "57.80"
+ /14 = "22.11"
+ /15 = "27.27"
+ /16 = "31.93"
+ /17 = "23.10"
+ /18 = "21.40"
+ /19 = "25.07"
+ /20 = "22"
+ /21 = "26.88"
+ /22 = "26.45"
+ /23 = "39.60"
+ /24 = "35.10"
+ /25 = "33"
+ /26 = "57.80"
+ </item>
+ 
+  *** current specifies to show the ll corresponding to the ss ***
+ <text ll>
+ /items = ll
+ /select = current(ss)
+ /position = (65%, 50%)
+ </text>
+
+  <item delayss>
+ /1 = "Euro Now"
+ </item>
+ 
+   <text delayss>
+ /items = delayss
+ /select = noreplace
+ /position = (35%, 55%)
+ </text>
+ 
+   <item delayll>
+ /1 = "Euro in 3 Weeks"
+ /2 = "Euro in 4 Weeks"
+ </item>
+ 
+   <text delayll>
+ /items = delayll
+ /select = noreplace
+ /position = (65%, 55%)
+ </text>
+ 
+    <item remind>
+ /1 = "Remember to choose what you prefer by clicking on the amount"
+ </item>
+ 
+  <text remind>
+ /items = remind
+ /select = noreplace 
+ /position = (50%, 80%)
+ </text>
+ 
+
+
+*** lottery ***
+<trial enterlotterytrial>
+/ ontrialbegin = [values.enteredintolottery = list.storedwinnings.nextvalue;]
+/ ontrialbegin = [list.1to99.appenditem(values.enteredintolottery);]
+/ stimulusframes = [1=payoutmsg, trialmsg, trialmsg2]
+/ validresponse = (57)
+</trial>
+
+<trial showlistcontents>
+/ ontrialbegin = [values.index += 1]
+/ ontrialbegin = [text.listentry.item.1 = list.1to99.item(values.index)]
+/ stimulusframes = [1=listentry, remind2]
+/ trialduration = 200
+</trial>
+
+ <item remind2>
+ /1 = "Please wait, we will now draw your lottery number"
+ </item>
+ 
+  <text remind2>
+ /items = remind2
+ /select = noreplace 
+ /position = (50%, 80%)
+ </text>
+
+<text listentry>
+/ items = (" ")
+</text>
+
+<trial drawnumber>
+/ ontrialbegin = [list.1to99.reset(); values.drawnnumber = list.1to99.nextvalue;]
+/ ontrialbegin = [if (list.1to99.currentindex == 100) text.wonorlost.item.1 = "Congratulations, you won!" else text.wonorlost.item.1 = "I'm sorry, you lost"]
+/ stimulusframes = [1=drawresult, wonorlost, continue]
+/ validresponse = (57)
+</trial>
+
+<text drawresult>
+/ items = ("Number drawn: <%values.drawnnumber%>")
+</text>
+
+<text wonorlost>
+/ items = (" ")
+/ position = (50%, 60%)
+</text>
+
+<text continue>
+/ items = (" Press the spacebar to continue ")
+/ position = (50%, 70%)
+</text>
+
+<list storedwinnings>
+</list>
+
+<list 1to99>
+/ items = (1,2,3,4,5,6,7,8,9,10,
+    11,12,13,14,15,16,17,18,19,200,
+    212,222,232,224,235,26,227,282,29,30,
+    313,323,333,334,353,36,37,38,39,40,
+    41,424,43,44,45,46,47,48,49,50,
+    51,52,53,54,55,56,57,58,59,60,
+    61,62,63,64,65,66,67,68,69,70,
+    71,72,73,74,75,76,77,78,79,80,
+    81,82,83,84,85,86,87,88,89,90,
+    91,92,93,94,95,96,97,98,99)
+</list>
+
+<text payoutmsg>
+/ items = ("The amount is <%values.enteredintolottery%>")
+/ position = (50%, 40%)
+</text>
+
+<text trialmsg>
+/ items = ("The amount you chose in trial #<%list.storedwinnings.currentindex%> was entered into the lottery.")
+/ position = (50%, 60%)
+</text>
+<text trialmsg2>
+/ items = ("Press space bar to start the lottery, Good luck!")
+/ position = (50%, 70%)
+</text>
+
+
+*** question with "anchors"... in a ten likert scale showing images***
+
+<item fractals>
+/1 = "triangle.png"
+/2 = "square.png"
+/3 = "rombhus.png"
+/4 = "pentagon.png"
+/5 = "circle.png"
+</item>
+
+<picture fractals>
+/ select = noreplace
+/ items = fractals
+/ position = (50%,30%)
+/ size = (320, 320)
+</picture>
+
+
+<likert scale>
+/ anchors = [1 = "unattractive"; 10= "attractive"]
+/ anchorwidth = 8.5%
+/ numpoints = 10
+/ position = (50%, 70%)
+/ stimulusframes = [1 = fractals]
+</likert>
+
+
+
+*** now telling in what order and how many trials etc... ***
+
+ <block Blok1Intro>
+/ trials = [1-2 = Instructions1] 
+</block>
+ 
+  <block Blokinfo>
+/ trials = [1-3 = entry] 
+</block>
+ 
+ <block Blok1choiceinfo>
+/ trials = [1 = Instructions2] 
+</block>
+
+<block choiceblock>
+/ trials = [1-26= choicetrial]
+</block>
+
+ <block Blok1rating>
+/ trials = [1 = Instructions3] 
+</block>
+
+ <block rates>
+/ trials = [1-5= scale]
+</block>
+
+ <block further>
+/ trials = [1= Instructions4] 
+</block>
+
+<block payoutblock>
+/ trials = [1=enterlotterytrial; 2-101=showlistcontents; 102=drawnumber]
+</block>
+
+<block thanks>
+/ trials = [1= Instructions5] 
+</block>
+
+*** now define how the blocks will be shown***
+
+<expt tdtask>
+/ blocks = [1 = Blok1Intro; 2 = Blokinfo; 3 = Blok1choiceinfo ;4 = choiceblock; 5 = Blok1rating; 6 = rates; 7 = further; 8= payoutblock; 9= thanks];
+</expt>
